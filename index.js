@@ -31,3 +31,14 @@ app.get("/film", async (req,res)=>{
         res.send(err);
     }
 });
+
+app.post("/film", async (req,res)=>{
+    const data= req.body;
+    try{
+        const film = await db.Film.create(data);
+        res.send({message:"data film berhasil dibuat", film})
+    }catch(err){
+        res.send(err);
+    }
+});
+
