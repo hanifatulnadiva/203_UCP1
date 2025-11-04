@@ -57,3 +57,19 @@ app.delete("/film/:id", async(req,res)=>{
         res.status(500).send({message:"terjadi kesalahan saat delete data film", Error:err.message})
     }
 });
+
+app.put("/film/:id", async(req,res)=>{
+    const id=req.params.id;
+    const data = req.body
+    try{
+        const film=await db.Film.findByPk(id);
+        if(!film){
+            return res.status(404).send({Message: "Data film tidak di temukan"});
+        }
+        await film.update(data);
+        res.send({Message:"Data berhasil di update", film})
+
+    }catch(err){
+        res.status(500).send({message:"terjadi kesalahan saat delete data film", Error:err.message})
+    }
+});
